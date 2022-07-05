@@ -28,8 +28,12 @@ class DBHandler:
                 user=os.getenv("POSTGRES_USER", "postgres"),
                 password=os.getenv("POSTGRES_PASSWORD", "postgres"),
             )
+            if cls.pool:
+                logger.info("Connection pool created successfully")
 
             conn = cls.pool.getconn()
+            if conn:
+                logger.info("Successfully recived connection from connection pool")
 
             logger.info("PostgreSQL database connected (pool)")
             with conn.cursor() as cur:
@@ -55,9 +59,11 @@ class DBHandler:
             cls.connect_pool()
 
         with cls.pool.getconn() as conn:
-            with conn.cursor() as cur:
-                cur.execute(query, params)
-                result = cur.fetchall()
-
-            cls.pool.putconn(conn)
+            if conn:
+                logger.info("Successfully recived connection from connection pool")
+                with conn.cursor() as cur:
+                    cur.execute(query, params)
+                    result = cur.fetchall()
+                    logger.info("Query executed successfully")
+                cls.pool.putconn(conn)
         return result
