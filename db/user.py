@@ -30,7 +30,8 @@ def save_user(user):
 
         # Save the user to the database
     DBHandler().execute(
-        "INSERT INTO users (id, first_name, last_name, username, language_code) VALUES (%s, %s, %s, %s, %s)",
+        """INSERT INTO users (id, first_name, last_name, username, language_code)
+        VALUES (%s, %s, %s, %s, %s)""",
         (
             user.id,
             user.first_name,
