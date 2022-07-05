@@ -3,9 +3,9 @@ import logging
 import os
 
 from dotenv import load_dotenv
-from telegram.ext import ApplicationBuilder, CommandHandler
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 
-from commands import start
+from commands import start, unknown
 from db.connection import DBHandler
 
 load_dotenv()
@@ -29,12 +29,11 @@ def main():
 
     app = ApplicationBuilder().token(os.getenv("TOKEN")).build()
 
-    app.add_handler(CommandHandler("start", start))
-
-    app.add_error_handler(error)
-
     DBHandler().connect_pool()
 
+    app.add_handler(CommandHandler("start", start))
+    app.add_error_handler(error)
+    app.add_handler(MessageHandler(filters.COMMAND, unknown))
     app.run_polling()
 
 
