@@ -1,5 +1,20 @@
 """Database user handlers"""
+import logging
+
 from db.connection import DBHandler
+
+logger = logging.getLogger(__name__)
+
+
+def create_users_table():
+    """Create the users table."""
+
+    # Create the users table
+    DBHandler().execute(
+        """CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY, first_name VARCHAR(255),
+        last_name VARCHAR(255), username VARCHAR(255), language_code VARCHAR(255))"""
+    )
+    logger.info("Users table created")
 
 
 def save_user(user):
@@ -10,6 +25,7 @@ def save_user(user):
         DBHandler().execute("SELECT * FROM users WHERE id = %s", (user.id,)).fetchone()
         is not None
     ):
+        logger.info("User already in database")
         return
 
         # Save the user to the database
