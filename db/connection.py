@@ -18,7 +18,7 @@ class DBHandler:
     def connect_pool(cls) -> None:
         """Connect to the database."""
 
-        logger.info("Connecting to the PostgreSQL database... (pool)")
+        logger.info("Creating connection pool...")
         try:
             cls.pool = ThreadedConnectionPool(
                 5,
@@ -35,7 +35,6 @@ class DBHandler:
             if conn:
                 logger.info("Successfully recived connection from connection pool")
 
-            logger.info("PostgreSQL database connected (pool)")
             with conn.cursor() as cur:
                 cur.execute("SELECT version();")
                 logger.info(
