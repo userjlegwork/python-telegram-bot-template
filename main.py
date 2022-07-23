@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 
-from commands import start, unknown
+import commands
 from db.connection import DBHandler
 
 load_dotenv()
@@ -31,9 +31,16 @@ def main():
 
     DBHandler().connect_pool()
 
-    app.add_handler(CommandHandler("start", start))
     app.add_error_handler(error)
-    app.add_handler(MessageHandler(filters.COMMAND, unknown))
+
+    app.add_handlers(
+        [
+            CommandHandler(command, eval(f"commands.{command}"))
+            for command in commands.get_all_commands()
+        ]
+    )
+
+    app.add_handler(MessageHandler(filters.COMMAND, commands.unknown))
     app.run_polling()
 
 
