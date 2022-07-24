@@ -23,10 +23,10 @@ class DBHandler:
             cls.pool = ThreadedConnectionPool(
                 5,
                 50,
-                host=os.getenv("POSTGRES_HOST", "localhost"),
-                database=os.getenv("POSTGRES_DB", "testbot"),
-                user=os.getenv("POSTGRES_USER", "postgres"),
-                password=os.getenv("POSTGRES_PASSWORD", "postgres"),
+                host=os.getenv("POSTGRES_HOST"),
+                database=os.getenv("POSTGRES_DB"),
+                user=os.getenv("POSTGRES_USER"),
+                password=os.getenv("POSTGRES_PASSWORD"),
             )
             if cls.pool:
                 logger.info("Connection pool created successfully")
@@ -43,7 +43,10 @@ class DBHandler:
         except (psycopg2.DatabaseError) as error:
             logger.error(error)
 
-        finally:
+        except Exception as error:
+            logger.error("Unknown", error)
+
+        else:
             if not cur.closed:
                 cur.close()
 
