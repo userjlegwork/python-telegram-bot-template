@@ -43,9 +43,6 @@ class DBHandler:
         except (psycopg2.DatabaseError) as error:
             logger.error(error)
 
-        except Exception as error:
-            logger.error("Unknown", error)
-
         else:
             if not cur.closed:
                 cur.close()

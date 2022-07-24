@@ -35,7 +35,7 @@ def main():
 
     app.add_handlers(
         [
-            CommandHandler(command, eval(f"commands.{command}"))
+            CommandHandler(command, getattr(commands, command))
             for command in commands.get_all_commands()
         ]
     )
