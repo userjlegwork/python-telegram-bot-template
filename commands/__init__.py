@@ -5,7 +5,7 @@ from .start import *
 from .unknown import *
 
 
-# TODO: typing
+# 19 TODO: Add typing
 def get_all_commands():
     """Returns a list with all the commands names"""
     commands_path = Path("./commands")
