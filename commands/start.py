@@ -4,7 +4,7 @@ import logging
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from utils.user import get_user_first_name
+from common.utils import get_user_first_name
 
 logger = logging.getLogger(__name__)
 
