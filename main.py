@@ -19,9 +19,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Logs telegram api errors
-def error(update, context):
+async def error(update, context):
     """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, context.error)
+    await logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
 def main():
