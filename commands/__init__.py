@@ -6,7 +6,7 @@ from .unknown import *
 
 
 # 19 TODO: Add typing
-def get_all_commands():
+def get_all_commands() -> list:
     """Returns a list with all the commands names"""
     commands_path = Path("./commands")
 
