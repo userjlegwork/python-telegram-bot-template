@@ -62,8 +62,6 @@ def main():
 
     DBHandler().connect_pool()
 
-    app.add_error_handler(error)
-
     app.add_handlers(
         [
             CommandHandler(command, getattr(commands, command))
@@ -72,6 +70,7 @@ def main():
     )
 
     app.add_handler(MessageHandler(filters.COMMAND, commands.unknown))
+    app.add_error_handler(error)
     app.run_polling()
 
 
