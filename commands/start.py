@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /start is issued."""
+
+    if update is None:
+        return
+
     logger.info("/start command called")
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
