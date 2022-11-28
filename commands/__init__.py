@@ -1,8 +1,8 @@
 """Import all commands."""
 from pathlib import Path
 
-from .start import *
-from .unknown import *
+from .start import start
+from .unknown import unknown
 
 
 # 19 TODO: Add typing
