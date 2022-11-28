@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /start is issued."""
 
-    if update is None:
+    if update == None:
         return
 
     logger.info("/start command called")
