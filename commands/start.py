@@ -21,3 +21,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         text=f"Welcome {get_user_first_name(update)}!",  # 1 Handle translate
     )
     logger.info("/start command executed successfully")
+
+if __name__ == "__main__":
+    start()
